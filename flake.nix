@@ -14,7 +14,7 @@
       stdenv.mkDerivation {
         name = "system76-acpi-dkms";
         #version = 1.0.1;
-        src = nixpkgs.fetchFromGitHub {
+        src = fetchFromGitHub {
           owner = "pop-os";
           repo = "system76-acpi-dkms";
           rev = "1.0.1";
