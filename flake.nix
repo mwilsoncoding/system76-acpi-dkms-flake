@@ -3,7 +3,7 @@
     System76 ACPI Driver (DKMS)
   '';
 
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/b3251e04ee470c20f81e75d5a6080ba92dc7ed3f;
+  inputs.nixpkgs.url = github:NixOS/nixpkgs/30d7b9341291dbe1e3361a5cca9052ee1437bc97;
 
   outputs = { self, nixpkgs }: {
 
@@ -17,24 +17,24 @@
         src = fetchFromGitHub {
           owner = "pop-os";
           repo = "system76-acpi-dkms";
-          rev = "1.0.1";
-          sha256 = "0jmm9h607f7k20yassm6af9mh5l00yih5248wwv4i05bd68yw3p5";
+          rev = "1.0.2";
+          sha256 = "1i7zjn5cdv9h00fgjg46b8yrz4d3dqvfr25g3f13967ycy58m48h";
         };
 
         hardeningDisable = [ "pic" ];
         dontStrip = true;
         dontPatchELF = true;
 
-        kernel = linuxPackages_latest.kernel.dev;
-        nativeBuildInputs = linuxPackages_latest.kernel.moduleBuildDependencies;
+        kernel = linuxPackages_5_8.kernel.dev;
+        nativeBuildInputs = linuxPackages_5_8.kernel.moduleBuildDependencies;
 
         preBuild = ''
-          sed -e "s@/lib/modules/\$(.*)@${linuxPackages_latest.kernel.dev}/lib/modules/${linuxPackages_latest.kernel.modDirVersion}@" -i Makefile
+          sed -e "s@/lib/modules/\$(.*)@${linuxPackages_5_8.kernel.dev}/lib/modules/${linuxPackages_5_8.kernel.modDirVersion}@" -i Makefile
         '';
         
         installPhase = ''
-          mkdir -p $out/lib/modules/${linuxPackages_latest.kernel.modDirVersion}/misc
-          cp system76_acpi.ko $out/lib/modules/${linuxPackages_latest.kernel.modDirVersion}/misc
+          mkdir -p $out/lib/modules/${linuxPackages_5_8.kernel.modDirVersion}/misc
+          cp system76_acpi.ko $out/lib/modules/${linuxPackages_5_8.kernel.modDirVersion}/misc
 
           # not sure if these are working
           mkdir -p $out/usr/share/initramfs-tools/hooks
