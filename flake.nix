@@ -3,7 +3,7 @@
     System76 ACPI Driver (DKMS)
   '';
 
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/30d7b9341291dbe1e3361a5cca9052ee1437bc97;
+  inputs.nixpkgs.url = github:NixOS/nixpkgs/2247d824fe07f16325596acc7faa286502faffd1;
 
   outputs = { self, nixpkgs }: {
 
